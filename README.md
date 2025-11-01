@@ -3,15 +3,15 @@
 
 
 ###  AWS | Camunda Business Process Model
-Camunda is an open-source process automation platform used to model, automate, and monitor business processes and workflows.
+Camunda is a lightweight, open-source workflow and decision automation platform that helps organizations design, execute, and monitor business processes. It uses standard notations like BPMN (Business Process Model and Notation) for processes, CMMN (Case Management Model and Notation) for cases, and DMN (Decision Model and Notation) for decision logic
 
-⚙️ Main Components:
+⚙️ Key features:
 ```
-✅ Modeler:  Design workflows (BPMN), decision tables (DMN), and forms
-✅ Engine:   The runtime engine that executes BPMN workflows and DMN decision tables.
-✅ Operate:  A web app for monitoring and troubleshooting running or completed workflow instances.
-✅ Tasklist: A UI for human users to complete manual tasks within workflows.
-✅ Optimize: Provides analytics, reports, and KPIs for business process performance.
+✅ Process modeling: Create visual diagrams for processes and workflows.
+✅ Workflow automation: Execute processes programmatically via its workflow engine.
+✅ Decision automation: Automate decisions with decision tables using DMN.
+✅ Monitoring and analytics: Track process execution, identify bottlenecks, and optimize processes.
+✅ Integration-friendly: Works with REST APIs, Java, Spring Boot, and many databases.
 ```
 
 🚀 Use Cases:
