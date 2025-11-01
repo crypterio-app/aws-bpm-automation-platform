@@ -133,7 +133,7 @@ variable "enable_kms_encryption_eks" {
 variable "itom_software_directory" {
   type        = string
   description = "Directory that contains various ITOM Software binaries such as CDF, Helm Charts etc."
-  default     = "../../itom-software"
+  default     = "../itom-software"
 }
 
 variable "csi_driver_helmchart_version" {
