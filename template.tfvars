@@ -5,7 +5,6 @@ tags               = {
 }
 
 allowed_client_cidrs = ["0.0.0.0/0"]        # Who can access the suite services?
-
 node_instance_type        = "m5.large"      # What's the instance type for the Kubernetes worker nodes?
 node_group_desired_size   = 4               # How many nodes are needed (up to 10 or check variables.tf for more options)?
 k8s_version = "1.33"
@@ -17,8 +16,8 @@ database_instance_type  = "db.t3.small"     # What's the database instance type?
 database_volume_size    = 100               # How much storage (GiB) should the database use?
 
 database_name           = "camunda"
-database_admin_username = "admin"
-database_admin_password = "q1w2e3r4100!"    # 8-128 characters, combination of letters, digits, and special characters
+database_admin_username = "dbadmin"
+database_admin_password = "q1w2e3r4100@!"    # 8-128 characters, combination of letters, digits, and special characters
 create_postgres_parameter_group = false
 
 #Multi AZ configuration
