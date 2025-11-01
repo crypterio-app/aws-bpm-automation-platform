@@ -2,27 +2,6 @@ locals {
   base_cidr     = var.vpc_cidr_block
   prefix_length = var.subnet_prefix_size
 
-  /*
-    Calculate the right amount of non-overlapping CIDR ranges for an arbitrary number of services (called "groups")
-    and an arbitrary number of subnets per service ("group").
-
-    E.g. for the following input:
-      cidrgroups = {
-        eks = 3               // 3 subnets/cidrs for EKS (the EKS service/group)
-        public = 2            // 2 subnets/cidrs for the public subnet
-        rds = 2               // 2 subnets/cidrs for RDS
-        #vertica = 1           // 1 subnet/cidr for Vertica
-      }
-
-    Generate the following output:
-      grouped_cidrs       = {
-        eks     = [ "10.0.0.0/20", "10.0.16.0/20", "10.0.32.0/20", ]
-        public  = [ "10.0.48.0/20", "10.0.64.0/20", ]
-        rds     = [ "10.0.80.0/20", "10.0.96.0/20", ]
-        #vertica = [ "10.0.112.0/20", ]
-    }
-  */
-
   // How many CIDR groups are defined? Count the keys of the cidrgroup definition
   num_cidrgroups = length(keys(local.cidr_groups))
 
