@@ -35,3 +35,6 @@ existing_nat_gw_eip                = "null" # Public Elastic IP attached to the 
 existing_public_subnet_ids         = []     # IDs of all the public subnets. If 'workers_multi_az' variable is set to false, pass 2 subnet IDs.If 'workers_multi_az' variable is set to true, the number of subnet IDs should be equal to the value set for 'number_eks_azs'
 existing_private_eks_subnet_ids    = []     # IDs of all the private subnets for eks. If 'workers_multi_az' variable is set to false, pass 2 subnet IDs.If 'workers_multi_az' variable is set to true, the number of subnet IDs should be equal to the value set for 'number_eks_azs'
 
+
+
+
