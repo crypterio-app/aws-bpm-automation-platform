@@ -4,7 +4,7 @@
 #
 
 # ========================= CLOUD RESOURCES IDENTIFICATION =============================================================
-environment_prefix = "itom-toolkit"
+environment_prefix = "camunda"
 tags               = {
   "Owner" = ""
 }
@@ -14,7 +14,7 @@ allowed_client_cidrs = ["0.0.0.0/0"]      # Who can access the suite services?
 
 # ========================= KUBERNETES CLUSTER CONFIGURATION ===========================================================
 node_instance_type        = "m5.large"      # What's the instance type for the Kubernetes worker nodes?
-node_group_desired_size   = 3                 # How many nodes are needed (up to 10 or check variables.tf for more options)?
+node_group_desired_size   = 4                 # How many nodes are needed (up to 10 or check variables.tf for more options)?
 k8s_version = "1.33"
 enable_kms_encryption_eks = false             #Set to true to enable secrets encryption for eks with kms key. Enabling this will create a kms key with rotation policy of 1 year
 
@@ -25,9 +25,9 @@ database_instance_type  = "db.t3.small"    # What's the database instance type? 
 database_volume_size    = 100               # How much storage (GiB) should the database use?
 
 # Create a DB and set credentials for the master DB user
-database_name           = "toolkit"
-database_admin_username = "dbadmin"
-database_admin_password = "Gsnimanager1!"    # 8-128 characters, combination of letters, digits, and special characters # ? = _ ) ! , ~ : % ; ^ + . - & < [ | * / $  ( > ] { }
+database_name           = "camunda"
+database_admin_username = "admin"
+database_admin_password = "q1w2e3r4100!"    # 8-128 characters, combination of letters, digits, and special characters # ? = _ ) ! , ~ : % ; ^ + . - & < [ | * / $  ( > ] { }
 
 # Create a custom Database Parameter Group for the RDS Postgres DB
 # By default is skipped and will use the AWS default DB parameter group associated to the Postgres DB family

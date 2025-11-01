@@ -39,7 +39,7 @@ locals {
 
 // VPC
 module "vpc" {
-  source         = "../tf-modules/vpc"
+  source         = "../modules/vpc"
   vpc-cidr-block = var.vpc_cidr_block
 
   use_existing_vpc = var.use_existing_vpc
@@ -51,7 +51,7 @@ module "vpc" {
 
 // PUBLIC SUBNET
 module "public-subnet" {
-  source = "../tf-modules/public-subnet"
+  source = "../modules/public-subnet"
 
   availability-zones = slice(data.aws_availability_zones.availability-zones.names, 0, local.cidr_groups.public)
   vpc-id             = module.vpc.vpc-id
@@ -69,7 +69,7 @@ module "public-subnet" {
 
 // DNS ZONE
 module "dns-zone" {
-  source = "../tf-modules/hosted-zone"
+  source = "../modules/hosted-zone"
 
   private-hosted-zone = var.private_hosted_zone
   public-hosted-zone  = var.public_hosted_zone
@@ -81,7 +81,7 @@ module "dns-zone" {
 
 // SSH KEY PAIR
 module "ssh-key-pair" {
-  source = "../tf-modules/keypair"
+  source = "../modules/keypair"
 
   environment-prefix = var.environment_prefix
   tags               = var.tags
@@ -89,7 +89,7 @@ module "ssh-key-pair" {
 
 // BASTION VM
 module "bastion" {
-  source = "../tf-modules/bastion"
+  source = "../modules/bastion"
 
   vpc-id                = module.vpc.vpc-id
   subnet-id             = module.public-subnet.subnet-id[0]
@@ -116,7 +116,7 @@ module "bastion" {
 
 // EKS CLUSTER
 module "eks-cluster" {
-  source = "../tf-modules/eks"
+  source = "../modules/eks"
 
   k8s_version      = var.k8s_version
   workers_multi_az = var.workers_multi_az
@@ -170,7 +170,7 @@ module "eks-cluster" {
 
 // NFS SHARE
 module "efs" {
-  source = "../tf-modules/efs"
+  source = "../modules/efs"
 
   target-subnet-ids         = flatten([module.eks-cluster.subnet-ids])
   client-security-group-ids = flatten([module.bastion.security-groups, module.eks-cluster.security-group-id])
@@ -181,7 +181,7 @@ module "efs" {
 
 // RDS SUBNETS
 module "database-subnets" {
-  source = "../tf-modules/rds-subnets"
+  source = "../modules/rds-subnets"
 
   tags   = var.tags
   vpc-id = module.vpc.vpc-id
@@ -200,7 +200,7 @@ module "database-subnets" {
 // RDS POSTGRES PARAMETER GROUP
 module "database-postgres-parameter-group" {
   count  = var.create_postgres_parameter_group ? 1 : 0
-  source = "../tf-modules/rds-pg-parameter-group"
+  source = "../modules/rds-pg-parameter-group"
 
   environment-prefix      = var.environment_prefix
   database-engine         = var.database_engine
@@ -216,7 +216,7 @@ module "database-postgres-parameter-group" {
 
 // RDS
 module "database" {
-  source = "../tf-modules/rds"
+  source = "../modules/rds"
 
   db-engine         = var.database_engine
   db-engine-version = var.database_engine_version
@@ -240,7 +240,7 @@ module "database" {
 
 // DETECT CORRECT KUBECTL DOWNLOAD URL
 module "kubectl-finder" {
-  source          = "../tf-modules/kubectl-finder"
+  source          = "../modules/kubectl-finder"
   kubectl_version = var.k8s_version
 }
 
@@ -281,7 +281,7 @@ module "bastion-preparation" {
 
 // LOAD BALANCER CONTROLLER
 module "load-balancer-controller" {
-  source                       = "../tf-modules/load-balancer-controller"
+  source                       = "../modules/load-balancer-controller"
   environment-prefix           = var.environment_prefix
   tags                         = var.tags
   eks-oidc-issuer              = module.eks-cluster.eks-oidc-issuer-url
@@ -298,7 +298,7 @@ module "load-balancer-controller" {
 
 // EBS CSI DRIVER
 module "ebs-csi-driver" {
-  source = "../tf-modules/ebs-csi"
+  source = "../modules/ebs-csi"
 
   environment-prefix           = var.environment_prefix
   tags                         = var.tags
@@ -314,7 +314,7 @@ module "ebs-csi-driver" {
 
 // EXTERNAL DNS
 module "external-dns" {
-  source = "../tf-modules/external-dns"
+  source = "../modules/external-dns"
 
   environment-prefix              = var.environment_prefix
   tags                            = var.tags
